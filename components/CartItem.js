@@ -62,10 +62,10 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
         <p className="text-gray-600 line-through">${item.price.toFixed(2)}</p>
         <p className="text-gray-800 font-bold">${discountedPrice.toFixed(2)}</p>
         <div className="md:flex items-center mt-2 space-x-4">
-          <div className="flex items-center border rounded-lg overflow-hidden">
+          <div className="flex items-center border rounded-lg overflow-hidden mb-4 xl:mb-0">
             <button
               onClick={handleDecrease}
-              className="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400 transition-colors duration-300"
+              className="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400 transition-colors duration-300 md:text-2xl"
             >
               -
             </button>
@@ -77,7 +77,7 @@ const CartItem = ({ item, updateQuantity, removeItem }) => {
             />
             <button
               onClick={handleIncrease}
-              className="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400 transition-colors duration-300"
+              className="bg-gray-300 text-gray-700 px-4 py-2 hover:bg-gray-400 transition-colors duration-300 md:text-2xl"
             >
               +
             </button>
