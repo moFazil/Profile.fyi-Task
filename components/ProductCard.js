@@ -1,8 +1,7 @@
-import { Alert, Snackbar } from '@mui/material';
-import React, { useState } from 'react';
+import { Alert, Snackbar } from "@mui/material";
+import React, { useState } from "react";
 
 const ProductCard = ({ product, addToCart }) => {
-
   const [open, setOpen] = useState(false);
 
   const handleCartClick = () => {
@@ -11,7 +10,7 @@ const ProductCard = ({ product, addToCart }) => {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -20,10 +19,10 @@ const ProductCard = ({ product, addToCart }) => {
   return (
     <div className="border p-4 rounded-lg shadow-md w-full sm:w-48 md:w-56 lg:w-64 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg bg-warm-gray-100 text-warm-gray-900">
       <div className="h-[20rem]">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="w-full h-full object-cover object-left-bottom transition-opacity duration-500 hover:opacity-90" 
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-cover object-left-bottom transition-opacity duration-500 hover:opacity-90"
         />
       </div>
       <h3 className="mt-4 text-lg font-bold">{product.name}</h3>
@@ -38,9 +37,13 @@ const ProductCard = ({ product, addToCart }) => {
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center'  }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%',fontWeight:'900' }}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          sx={{ width: "100%", fontWeight: "900" }}
+        >
           Successfully Added To Cart!
         </Alert>
       </Snackbar>

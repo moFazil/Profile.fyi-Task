@@ -1,15 +1,17 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import ProductCard from '../components/ProductCard';
-import { productsData } from '@/public/ProductData';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import ProductCard from "../components/ProductCard";
+import { productsData } from "@/public/ProductData";
+import { useRouter } from "next/navigation";
+import { Badge, IconButton } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Home() {
   const [cart, setCart] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart'));
+    const storedCart = JSON.parse(localStorage.getItem("cart"));
     if (storedCart) {
       setCart(storedCart);
     }
@@ -18,11 +20,11 @@ export default function Home() {
   const addToCart = (product) => {
     const updatedCart = [...cart, { ...product, quantity: 1 }];
     setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const handleCart = () => {
-    router.push('/cart');
+    router.push("/cart");
   };
 
   return (
@@ -33,18 +35,25 @@ export default function Home() {
             <h1 className="text-xl xl:text-3xl font-bold">Products</h1>
           </div>
           <div>
-            <button
-              className="bg-yellow-500 text-white text-sm xl:text-md font-bold px-3 xl:px-6 py-1 xl:py-2 rounded-full hover:bg-yellow-600 transition-colors duration-300"
+            <IconButton
+              aria-label="cart"
               onClick={handleCart}
+              sx={{ color: "white" }}
             >
-              Cart ({cart.length})
-            </button>
+              <Badge badgeContent={cart.length} color="warning">
+                <ShoppingCartIcon fontSize="large" />
+              </Badge>
+            </IconButton>
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {productsData.map(product => (
-          <ProductCard key={product.id} product={product} addToCart={addToCart} />
+        {productsData.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            addToCart={addToCart}
+          />
         ))}
       </div>
     </div>
