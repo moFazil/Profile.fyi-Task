@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { TextField, Button, Alert, Snackbar } from "@mui/material";
 
 export default function Cart() {
-  const [cart, setCart] = useState([]);
-  const [discountCode, setDiscountCode] = useState("");
-  const [isDiscountValid, setIsDiscountValid] = useState(true);
-  const [error, setError] = useState("");
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const router = useRouter();
+  const [cart, setCart] = useState([]); // State to manage cart items
+  const [discountCode, setDiscountCode] = useState(""); // State for discount code input
+  const [isDiscountValid, setIsDiscountValid] = useState(true); // State to validate discount code
+  const [error, setError] = useState(""); // State for error messages
+  const [showSnackbar, setShowSnackbar] = useState(false); // State to show Snackbar
+  const router = useRouter(); // Router to navigate between pages
 
+  // Load cart from localStorage when the component mounts
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart"));
     if (storedCart) {
@@ -19,6 +20,7 @@ export default function Cart() {
     }
   }, []);
 
+  // Update item quantity in the cart
   const updateQuantity = (id, quantity) => {
     if (isNaN(quantity) || quantity < 0) {
       setError("Invalid quantity. Please enter a positive number.");
@@ -32,18 +34,20 @@ export default function Cart() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Remove item from the cart
   const removeItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Handle discount code input change
   const handleDiscountCodeChange = (e) => {
     setDiscountCode(e.target.value);
   };
 
+  // Validate discount code
   const validateDiscountCode = () => {
-    // Example: hardcode valid discount codes for now
     const validCodes = ["SAVE10", "DISCOUNT20"];
     if (validCodes.includes(discountCode.toUpperCase())) {
       setIsDiscountValid(true);
@@ -55,6 +59,7 @@ export default function Cart() {
     }
   };
 
+  // Calculate totals including discounts
   const calculateTotals = () => {
     let fixedDiscountTotal = 0;
     let percentageDiscountTotal = 0;
@@ -84,6 +89,7 @@ export default function Cart() {
 
   const totals = calculateTotals();
 
+  // Navigate to the previous page
   const handleBackward = () => {
     router.back();
   };
@@ -117,7 +123,9 @@ export default function Cart() {
 
       {/* Discount Code Section */}
       <div className="mt-6 p-6 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-md shadow-lg border border-gray-300 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Apply Discount Code</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          Apply Discount Code
+        </h2>
         <TextField
           label="Discount Code"
           variant="outlined"
@@ -134,11 +142,11 @@ export default function Cart() {
           onClick={validateDiscountCode}
           className="mt-2"
           sx={{
-            bgcolor: '#FF6F61', // Custom color
-            '&:hover': {
-              bgcolor: '#FF3D2D', // Darker shade on hover
+            bgcolor: "#FF6F61", // Custom color
+            "&:hover": {
+              bgcolor: "#FF3D2D", // Darker shade on hover
             },
-            borderRadius: '20px',
+            borderRadius: "20px",
           }}
         >
           Apply Discount

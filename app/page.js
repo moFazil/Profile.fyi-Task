@@ -7,9 +7,10 @@ import { Badge, IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Home() {
-  const [cart, setCart] = useState([]);
-  const router = useRouter();
+  const [cart, setCart] = useState([]); // State to manage cart items
+  const router = useRouter(); // Router to navigate between pages
 
+  // Load cart from localStorage when the component mounts
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart"));
     if (storedCart) {
@@ -17,12 +18,14 @@ export default function Home() {
     }
   }, []);
 
+  // Add product to cart and update localStorage
   const addToCart = (product) => {
     const updatedCart = [...cart, { ...product, quantity: 1 }];
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Navigate to the cart page
   const handleCart = () => {
     router.push("/cart");
   };

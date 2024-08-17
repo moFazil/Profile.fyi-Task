@@ -1,14 +1,17 @@
-import { Alert, Snackbar } from "@mui/material";
 import React, { useState } from "react";
+import { Alert, Snackbar } from "@mui/material";
 
+// ProductCard component for displaying individual products
 const ProductCard = ({ product, addToCart }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // State to manage Snackbar visibility
 
+  // Handle add to cart button click
   const handleCartClick = () => {
     addToCart(product);
-    setOpen(true);
+    setOpen(true); // Show Snackbar with success message
   };
 
+  // Close Snackbar
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
